@@ -6,9 +6,9 @@
 //  Copyright © 2019 LiuFei. All rights reserved.
 //
 
-#define IS_IPHONEX ([UIScreen mainScreen].bounds.size.height >= 812.0f)
-#define kTopSafeHeight (IS_IPHONEX ? 44 : 20)
-#define kBottomSafeHeight (IS_IPHONEX ? 34 : 20)
+#define LF_IS_IPHONEX ([UIScreen mainScreen].bounds.size.height >= 812.0f)
+#define LF_kTopSafeHeight (LF_IS_IPHONEX ? 44 : 20)
+#define LF_kBottomSafeHeight (LF_IS_IPHONEX ? 34 : 20)
 #import "LFMessageAlertView.h"
 
 @interface LFMessageAlertView()
@@ -35,7 +35,9 @@
     alertView.startY = startY;
     alertView.endY = endY;
     alertView.duration = duration;
-    settingBlock(alertView);
+    if (settingBlock) {
+        settingBlock(alertView);
+    }
     [alertView showMessageAnimation];
 }
 
@@ -128,15 +130,15 @@
                                     self.center.y + translation.y);
     //    限制屏幕范围：
     if (self.showType==LFMessageAlertViewShowTop) {
-        newCenter.y = MIN(self.bounds.size.height/2.0+kTopSafeHeight,  newCenter.y);
+        newCenter.y = MIN(self.bounds.size.height/2.0+LF_kTopSafeHeight,  newCenter.y);
     } else {
-        newCenter.y = MAX(([UIScreen mainScreen].bounds.size.height-self.bounds.size.height/2.0-kBottomSafeHeight), newCenter.y);
+        newCenter.y = MAX(([UIScreen mainScreen].bounds.size.height-self.bounds.size.height/2.0-LF_kBottomSafeHeight), newCenter.y);
     }
     self.center = CGPointMake(self.center.x, newCenter.y);
     [panGesture setTranslation:CGPointZero inView:self];
     
     if (panGesture.state == UIGestureRecognizerStateEnded) {
-        if (self.center.y < kTopSafeHeight+self.bounds.size.height/10.0 || self.center.y > [UIScreen mainScreen].bounds.size.height-kBottomSafeHeight-self.bounds.size.height/10.0) {
+        if (self.center.y < LF_kTopSafeHeight+self.bounds.size.height/10.0 || self.center.y > [UIScreen mainScreen].bounds.size.height-LF_kBottomSafeHeight-self.bounds.size.height/10.0) {
             [self dismissViewAnimation];
         }else{
             [self showViewAnimation];
@@ -165,9 +167,9 @@
 - (void)showViewAnimation {
     [UIView animateWithDuration:0.3 delay:0 options:(UIViewAnimationOptionCurveEaseInOut) animations:^{
         if (self.showType==LFMessageAlertViewShowTop) {
-            self.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2.0, self.bounds.size.height/2.0+kTopSafeHeight);
+            self.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2.0, self.bounds.size.height/2.0+LF_kTopSafeHeight);
         } else {
-            self.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2.0, [UIScreen mainScreen].bounds.size.height-self.bounds.size.height/2.0-kBottomSafeHeight);
+            self.center = CGPointMake([UIScreen mainScreen].bounds.size.width/2.0, [UIScreen mainScreen].bounds.size.height-self.bounds.size.height/2.0-LF_kBottomSafeHeight);
         }
     } completion:^(BOOL finished) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.duration * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
