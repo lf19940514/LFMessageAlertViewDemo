@@ -63,7 +63,7 @@
 
 - (void)setupUI {
     self.backgroundColor = [UIColor whiteColor];
-    self.layer.shadowOpacity = 0.2f;
+    self.layer.shadowOpacity = 0.1f;
     self.layer.shadowOffset = CGSizeZero;
     self.layer.shadowRadius = 6.0f;
     self.layer.cornerRadius = 6.0f;
@@ -82,7 +82,7 @@
     _messageLabel.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-50, 0);
     [_messageLabel sizeToFit];
     
-    self.frame = CGRectMake(0, 0, _messageLabel.bounds.size.width+20, _messageLabel.bounds.size.height+20);
+    self.frame = CGRectMake(0, 0, _messageLabel.bounds.size.width+20, _messageLabel.bounds.size.height+12);
     _messageLabel.center = CGPointMake(self.bounds.size.width/2.0, self.bounds.size.height/2.0);
 }
 
@@ -197,7 +197,7 @@
     _messageLabel.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width-50, 0);
     [_messageLabel sizeToFit];
     
-    self.frame = CGRectMake(0, 0, _messageLabel.bounds.size.width+20, _messageLabel.bounds.size.height+20);
+    self.frame = CGRectMake(0, 0, _messageLabel.bounds.size.width+20, _messageLabel.bounds.size.height+12);
     _messageLabel.center = CGPointMake(self.bounds.size.width/2.0, self.bounds.size.height/2.0);
 }
 - (void)setBackColor:(UIColor *)backColor {
